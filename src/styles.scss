@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --dark-bg: #333356;
+  --light-bg: #50557E;
+  --shapes-bg: #525E87;
+  --white: #F8FCFC;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: 'Fredoka One', cursive;
+  color: var(--white);
+  background-color: var(--light-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 52px;
+}

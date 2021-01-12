@@ -1,0 +1,11 @@
+<div class="welcome-container">
+  <h1>Benvenuto!</h1>
+  <form [formGroup]="playerNameForm" (ngSubmit)="onPlayerNameFormSubmitted()">
+    <label>
+      <span>Inserisci il tuo nome:</span>
+      <input formControlName="playerName" type="text" id="playerNameInput">
+      <div class="inputLine"></div>
+    </label>
+    <button type="submit" id="playerNameSubmit" [disabled]="playerNameForm.invalid">Gioca</button>
+  </form>
+</div>
