@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
+  public score: number;
+  public playerName: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.score = 0;
+    this.playerName = localStorage.getItem('player');
   }
 
 }

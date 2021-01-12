@@ -1,1 +1,20 @@
-<p>game works!</p>
+<div class="game-container">
+  <div class="game-first-row">
+    <span class="game-score">Punteggio: {{ score }}</span>
+    <span class="game-player-name">Ciao, {{ playerName }}!</span>
+  </div>
+  <div class="game">
+    <div class="funnel-container">
+      <div class="icon funnel">
+        <div appElementDrag id="element1" class="shape shape-triangle"></div>
+        <div appElementDrag id="element2" class="shape shape-square"></div>
+        <div appElementDrag id="element3" class="shape shape-triangle"></div>
+        <div appElementDrag id="element4" class="shape shape-circle"></div>
+        <div appElementDrag id="element5" class="shape shape-rectangle"></div>
+        <div appElementDrag id="element6" class="shape shape-triangle"></div>
+        <div appElementDrag id="element7" class="shape shape-circle"></div>
+        <div appElementDrag id="element8" class="shape shape-rectangle"></div>
+      </div>
+    </div>
+  </div>
+</div>

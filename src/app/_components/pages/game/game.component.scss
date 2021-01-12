@@ -1,0 +1,99 @@
+.game-container {
+  width: 95vw;
+  height: 95vh;
+  background-color: var(--dark-bg);
+  border-radius: 48px;
+
+  .game-first-row {
+    width: 100%;
+    height: fit-content;
+    font-size: 36px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 32px 48px;
+  }
+
+  .game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    background-color: red;
+
+    .funnel-container {
+      position: relative;
+      background-color: green;
+
+      .funnel {
+        width: 500px;
+        height: 500px;
+        mask-image: url('/assets/funnel.svg');
+        background-color: var(--white);
+
+        .shape {
+          background-color: var(--shapes-bg);
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100px;
+          height: 100px;
+
+          &.shape-circle {
+            clip-path: circle(50%);
+          }
+
+          &.shape-triangle {
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+          }
+
+          &.shape-rectangle {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+          }
+        }
+
+        #element1 {
+          transform: translate3d(40px, -14px, 0) rotate(60deg);
+        }
+
+        #element2 {
+          transform: translate3d(102px, 52px, 0) rotate(34deg);
+        }
+
+        #element3 {
+          transform: translate3d(179px, -32px, 0) rotate(284deg);
+          height: 150px;
+        }
+
+        #element4 {
+          transform: translate3d(321px, 12px, 0);
+          width: 110px;
+          height: 110px;
+        }
+
+        #element5 {
+          transform: translate3d(205px, 132px, 0) rotate(30deg);
+          width: 150px;
+          height: 75px;
+        }
+
+        #element6 {
+          transform: translate3d(153px, 154px, 0) rotate(-51deg);
+          height: 150px;
+        }
+
+        #element7 {
+          transform: translate3d(233px, 314px, 0);
+          width: 75px;
+          height: 75px;
+        }
+
+        #element8 {
+          transform: translate3d(203px, 399px, 0) rotate(37deg);
+          width: 65px;
+          height: 65px;
+        }
+      }
+    }
+  }
+}

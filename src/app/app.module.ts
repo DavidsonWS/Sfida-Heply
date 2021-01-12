@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent, GameComponent } from './_components/pages';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ElementDragDirective } from './_directives';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    GameComponent
+    GameComponent,
+    ElementDragDirective
   ],
   imports: [
     BrowserModule,
