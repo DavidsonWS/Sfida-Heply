@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -9,18 +10,21 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class WelcomeComponent implements OnInit {
 
   public playerNameForm: FormGroup;
+  private router: Router;
 
-  constructor() {
+  constructor(router: Router) {
     this.playerNameForm = new FormGroup({
       playerName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
     });
+    this.router = router;
   }
 
   ngOnInit(): void {
   }
 
   public onPlayerNameFormSubmitted(): void {
-    // TO DO
+    localStorage.setItem('player', this.playerNameForm.controls.playerName.value);
+    this.router.navigate(['/game']);
   }
 
 }
