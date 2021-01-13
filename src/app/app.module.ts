@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent, GameComponent } from './_components/pages';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ElementDragDirective } from './_directives';
+import { ExaminerComponent } from './_components/examiner/examiner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     GameComponent,
-    ElementDragDirective
+    ElementDragDirective,
+    ExaminerComponent
   ],
   imports: [
     BrowserModule,
