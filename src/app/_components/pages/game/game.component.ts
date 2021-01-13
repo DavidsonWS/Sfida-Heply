@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { IPoint } from 'src/app/_intefaces/point.interface';
 
 @Component({
   selector: 'app-game',
@@ -6,15 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-
   public score: number;
   public playerName: string;
 
-  constructor() { }
+  constructor(
+    private renderer: Renderer2
+  ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.score = 0;
     this.playerName = localStorage.getItem('player');
   }
 
+  public onElementRelease(currentPosition: IPoint, element: HTMLElement): void {
+    console.warn(currentPosition, element);
+    this.resetElementPosition(element);
+  }
+
+  private resetElementPosition(element: HTMLElement): void {
+    this.renderer.removeAttribute(element, 'style');
+  }
 }

@@ -1,33 +1,27 @@
 <div class="game-container">
-  <div class="game-first-row">
-    <span class="game-score">Punteggio: {{ score }}</span>
-    <span class="game-player-name">Ciao, {{ playerName }}!</span>
-  </div>
-  <div class="game">
-    <div class="funnel-container">
-      <div class="icon funnel">
-        <div appElementDrag id="element1" class="shape shape-triangle"></div>
-        <div appElementDrag id="element2" class="shape shape-square"></div>
-        <div appElementDrag id="element3" class="shape shape-triangle"></div>
-        <div appElementDrag id="element4" class="shape shape-circle"></div>
-        <div appElementDrag id="element5" class="shape shape-rectangle"></div>
-        <div appElementDrag id="element6" class="shape shape-triangle"></div>
-        <div appElementDrag id="element7" class="shape shape-circle"></div>
-        <div appElementDrag id="element8" class="shape shape-rectangle"></div>
-      </div>
+  <div class="game-content">
+    <div class="game-first-row">
+      <span class="game-score">Punteggio: {{ score }}</span>
+      <span class="game-player-name">Ciao, {{ playerName }}!</span>
     </div>
-    <div class="game-examiners">
-      <div class="examiner" id="examiner1">
-        <div class="icon bucket"></div>
-        <span class="examiner-label">Esaminatore 1</span>
+    <div class="game">
+      <div class="funnel-container">
+        <div class="icon funnel"></div>
+        <div class="elements">
+          <div appElementDrag #element1 id="element1" class="shape shape-triangle" (released)="onElementRelease($event, element1)"></div>
+          <div appElementDrag #element2 id="element2" class="shape shape-square" (released)="onElementRelease($event, element2)"></div>
+          <div appElementDrag #element3 id="element3" class="shape shape-triangle" (released)="onElementRelease($event, element3)"></div>
+          <div appElementDrag #element4 id="element4" class="shape shape-circle" (released)="onElementRelease($event, element4)"></div>
+          <div appElementDrag #element5 id="element5" class="shape shape-rectangle" (released)="onElementRelease($event, element5)"></div>
+          <div appElementDrag #element6 id="element6" class="shape shape-triangle" (released)="onElementRelease($event, element6)"></div>
+          <div appElementDrag #element7 id="element7" class="shape shape-circle" (released)="onElementRelease($event, element7)"></div>
+          <div appElementDrag #element8 id="element8" class="shape shape-rectangle" (released)="onElementRelease($event, element8)"></div>
+        </div>
       </div>
-      <div class="examiner" id="examiner2">
-        <div class="icon bucket"></div>
-        <span class="examiner-label">Esaminatore 2</span>
-      </div>
-      <div class="examiner" id="examiner3">
-        <div class="icon bucket"></div>
-        <span class="examiner-label">Esaminatore 3</span>
+      <div class="game-examiners">
+        <app-examiner></app-examiner>
+        <app-examiner></app-examiner>
+        <app-examiner></app-examiner>
       </div>
     </div>
   </div>
