@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { IPoint } from 'src/app/_intefaces/point.interface';
+import { IPoint } from 'src/app/_interfaces';
 
 @Directive({
   selector: '[appElementDrag]'

@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WelcomeComponent, GameComponent } from './_components/pages';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ElementDragDirective } from './_directives';
-import { ExaminerComponent } from './_components/examiner/examiner.component';
+import { ExaminerComponent, WelcomeComponent, GameComponent } from './_components';
 
 @NgModule({
   declarations: [
