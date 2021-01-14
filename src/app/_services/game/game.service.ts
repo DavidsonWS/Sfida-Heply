@@ -35,8 +35,6 @@ export class GameService {
     this.initializeElementsArray(elementsCount);
     this.initializeExaminersArray();
 
-
-
     this.interval = setInterval(() => {
       this.addElement();
       this.time -= 100;
@@ -86,6 +84,10 @@ export class GameService {
 
   public addElementToExaminer(examinerId: number, elementId: number): void {
     console.log("Examiner ", examinerId, " Element ", elementId)
+  }
+
+  public getElement(index: number): IGameElement {
+    return this.elements[index];
   }
 
 }

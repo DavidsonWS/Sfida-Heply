@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 

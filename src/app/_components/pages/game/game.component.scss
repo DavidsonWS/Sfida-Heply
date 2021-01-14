@@ -39,6 +39,10 @@
         }
 
         .elements {
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .shape {
             background-color: var(--shapes-bg);
             position: absolute;
