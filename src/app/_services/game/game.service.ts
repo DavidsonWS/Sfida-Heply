@@ -13,11 +13,12 @@ export class GameService {
   private elements: IGameElement[];
   private examiners: IGameExaminer[];
   private elementsSubscribable: BehaviorSubject<Array<IGameElement>>;
-  private examinersSubscribable: BehaviorSubject<Array<IGameElement>>;
+  private examinersSubscribable: BehaviorSubject<Array<IGameExaminer>>;
 
   constructor() {
     this.score = new BehaviorSubject(0);
     this.elementsSubscribable = new BehaviorSubject(Array<IGameElement>(8));
+    this.examinersSubscribable = new BehaviorSubject(Array<IGameExaminer>(3));
     this.time = 5000;
   }
 
@@ -42,6 +43,7 @@ export class GameService {
     this.interval = setInterval(() => {
       this.addElement();
       this.elementsSubscribable.next(this.elements);
+      this.examinersSubscribable.next(this.examiners);
       this.time -= 100;
       console.log('NEW TIME:', this.time);
       console.log('ELEMENTS:', this.elements)
@@ -91,10 +93,16 @@ export class GameService {
     this.examiners[examinerId].status = 'examining';
     this.examiners[examinerId].time = this.elements[elementId].weight;
     this.elements[elementId].status = 'busy';
+    this.examinersSubscribable.next(this.examiners);
+    this.elementsSubscribable.next(this.elements);
   }
 
   public getElements(): Observable<Array<IGameElement>> {
     return this.elementsSubscribable.asObservable();
+  }
+
+  public getExaminers(): Observable<Array<IGameExaminer>> {
+    return this.examinersSubscribable.asObservable();
   }
 
 }
