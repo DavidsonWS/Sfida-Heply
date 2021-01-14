@@ -14,7 +14,9 @@ export class GameComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private gameService: GameService
-  ) { }
+  ) {
+    this.score = 0;
+  }
 
   public ngOnInit(): void {
     this.playerName = localStorage.getItem('player');
