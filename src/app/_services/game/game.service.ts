@@ -84,8 +84,8 @@ export class GameService {
     return this.score.asObservable();
   }
 
-  public addElementToExaminer() {
-
+  public addElementToExaminer(examinerId: number, elementId: number): void {
+    console.log("Examiner ", examinerId, " Element ", elementId)
   }
 
 }
