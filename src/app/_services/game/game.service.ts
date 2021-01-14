@@ -27,6 +27,10 @@ export class GameService {
 
   }
 
+  public endGame(): void {
+
+  }
+
   public startGame(elementsCount: number): void {
     this.initializeElementsArray(elementsCount);
     this.initializeExaminersArray();
@@ -34,7 +38,6 @@ export class GameService {
 
 
     this.interval = setInterval(() => {
-      console.warn('fuck');
       this.addElement();
       this.time -= 100;
       console.log('NEW TIME:', this.time);
@@ -80,4 +83,9 @@ export class GameService {
   public getScore(): Observable<number> {
     return this.score.asObservable();
   }
+
+  public addElementToExaminer() {
+
+  }
+
 }

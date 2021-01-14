@@ -64,10 +64,31 @@ export class ElementDragDirective implements OnInit, OnDestroy {
     );
   }
 
-  private handleMouseUp(): void {
+  private handleMouseUp(event: MouseEvent): void {
+    this.examinerHit({ x: event.pageX, y: event.pageY });
     window.removeEventListener('mousemove', this.onMouseMoveEvent);
     window.removeEventListener('mouseup', this.onMouseUpEvent);
     this.htmlElement.nativeElement.addEventListener('mousedown', this.onMouseDownEvent);
     this.released.emit(this.currentTranslatePosition);
   }
+
+  private examinerHit(position: IPoint): number {
+    if (position.y > window.innerHeight * 0.725 && position.y < window.innerHeight * 0.97) {
+      if (position.x < window.innerWidth * 0.34 && position.x > window.innerWidth * 0.15) {
+        console.log("Examiner 1");
+        return 1;
+      }
+      if (position.x < window.innerWidth * 0.63 && position.x > window.innerWidth * 0.38) {
+        console.log("Examiner 2");
+        return 2;
+      }
+      if (position.x < window.innerWidth * 0.9 && position.x > window.innerWidth * 0.67) {
+        console.log("Examiner 3");
+        return 3;
+      }
+    } else {
+      return 0;
+    }
+  }
+
 }
