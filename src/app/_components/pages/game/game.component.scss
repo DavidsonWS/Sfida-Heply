@@ -40,9 +40,6 @@
 
         .elements {
 
-          display: flex;
-          justify-content: center;
-          align-items: center;
           .shape {
             background-color: var(--shapes-bg);
             position: absolute;
@@ -51,6 +48,15 @@
             width: 100px;
             height: 100px;
             cursor: grab;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+
+            span {
+              padding: 12px;
+              font-size: 20px;
+            }
 
             &:active {
               cursor: grabbing;

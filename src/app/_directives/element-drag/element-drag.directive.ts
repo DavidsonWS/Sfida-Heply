@@ -21,7 +21,6 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   constructor(
     private htmlElement: ElementRef,
     private renderer: Renderer2,
-    private gameService: GameService
   ) {
     this.released = new EventEmitter<Array<IPoint>>();
   }

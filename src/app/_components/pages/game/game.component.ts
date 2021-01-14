@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { IPoint } from 'src/app/_interfaces';
+import { IGameElement, IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 
 @Component({
@@ -11,16 +11,24 @@ export class GameComponent implements OnInit {
   public score: number;
   public playerName: string;
 
+  public elements: IGameElement[];
+
   constructor(
     private renderer: Renderer2,
     private gameService: GameService
   ) {
     this.score = 0;
+    this.elements = new Array<IGameElement>(8);
   }
 
   public ngOnInit(): void {
     this.playerName = localStorage.getItem('player');
     this.gameService.startGame(8);
+    this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
+      this.elements = result;
+      console.log("merda", this.elements)
+    });
+    // this.updateElements();
   }
 
   public onElementRelease(currentPosition: Array<IPoint>, element: HTMLElement): void {
@@ -51,6 +59,10 @@ export class GameComponent implements OnInit {
       }
     }
     examinerIndex > 0 ? this.gameService.addElementToExaminer(examinerIndex, elementIndex) : this.resetElementPosition(element);
+  }
+
+  private updateElements(): void {
+
   }
 
 }
