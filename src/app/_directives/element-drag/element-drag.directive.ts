@@ -86,9 +86,8 @@ export class ElementDragDirective implements OnInit, OnDestroy {
         console.log("Examiner 3");
         return 3;
       }
-    } else {
-      return 0;
     }
+    return 0;
   }
 
 }
