@@ -33,8 +33,12 @@ export class GameService {
   }
 
   public endGame(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
 
-  }
+    //TO DO
+   }
 
   public startGame(elementsCount: number): void {
     this.initializeElementsArray(elementsCount);
@@ -56,6 +60,8 @@ export class GameService {
     for (let i = 0; i < elementsCount; i++) {
       this.elements[i] = { weight: null, status: 'hidden' };
     }
+
+    this.elementsSubscribable.next(this.elements);
   }
 
   private initializeExaminersArray(): void {
@@ -64,6 +70,8 @@ export class GameService {
     for (let i = 0; i < 3; i++) {
       this.examiners[i] = { status: 'idle', time: null };
     }
+
+    this.examinersSubscribable.next(this.examiners);
   }
 
   private addElement(): void {
