@@ -28,6 +28,7 @@ export class GameComponent implements OnInit {
     this.gameService.startGame(8);
     this.updateElements();
     this.updateExaminers();
+    this.updateScore();
   }
 
   public onElementRelease(currentPosition: Array<IPoint>, element: HTMLElement): void {
@@ -79,6 +80,12 @@ export class GameComponent implements OnInit {
     this.gameService.getExaminers().subscribe((result: Array<IGameExaminer>) => {
       this.examiners = result;
       console.log(this.examiners);
+    });
+  }
+
+  private updateScore(): void {
+    this.gameService.getScore().subscribe((result: number) => {
+      this.score = result;
     });
   }
 

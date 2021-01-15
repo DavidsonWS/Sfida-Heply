@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { element } from 'protractor';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IGameElement, IGameExaminer } from 'src/app/_interfaces';
 
@@ -103,6 +104,18 @@ export class GameService {
     this.elements[elementId].status = 'busy';
     this.examinersSubscribable.next(this.examiners);
     this.elementsSubscribable.next(this.elements);
+
+    const updateTime = setInterval(() => {
+      this.examiners[examinerId].time -= 1;
+      this.examinersSubscribable.next(this.examiners);
+      if (this.examiners[examinerId].time === 0) {
+        this.score.next(this.score.value + this.elements[elementId].weight);
+        this.examiners[examinerId].status = 'idle';
+        this.examiners[examinerId].time = null;
+        this.examinersSubscribable.next(this.examiners);
+        clearInterval(updateTime);
+      }
+    }, 1000);
   }
 
   public getElements(): Observable<Array<IGameElement>> {
