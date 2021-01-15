@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { element } from 'protractor';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IGameElement, IGameExaminer } from 'src/app/_interfaces';
 

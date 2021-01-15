@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { IPoint } from 'src/app/_interfaces';
+import { IGameElement, IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 
 @Directive({
@@ -21,6 +21,7 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   constructor(
     private htmlElement: ElementRef,
     private renderer: Renderer2,
+    private gameService: GameService
   ) {
     this.released = new EventEmitter<Array<IPoint>>();
   }
@@ -36,6 +37,7 @@ export class ElementDragDirective implements OnInit, OnDestroy {
     this.onMouseMoveEvent = this.handleMouseMove.bind(this);
     this.onMouseUpEvent = this.handleMouseUp.bind(this);
     this.htmlElement.nativeElement.addEventListener('mousedown', this.onMouseDownEvent);
+    this.handleElementsVisibility();
   }
 
   private handleMouseDown(event: MouseEvent): void {
@@ -73,24 +75,15 @@ export class ElementDragDirective implements OnInit, OnDestroy {
     this.released.emit([this.currentTranslatePosition, { x: event.pageX, y: event.pageY }]);
   }
 
-  // private examinerHit(position: IPoint, element: HTMLElement): void {
-  //   let elementIndex: number = parseInt(element.id.substr(element.id.length - 1)) - 1;
-  //   let examinerIndex: number;
-  //   if (position.y > window.innerHeight * 0.725 && position.y < window.innerHeight * 0.97) {
-  //     if (position.x < window.innerWidth * 0.34 && position.x > window.innerWidth * 0.15) {
-  //       console.log("Examiner 1");
-  //       examinerIndex = 1;
-  //     }
-  //     if (position.x < window.innerWidth * 0.63 && position.x > window.innerWidth * 0.38) {
-  //       console.log("Examiner 2");
-  //       examinerIndex = 2;
-  //     }
-  //     if (position.x < window.innerWidth * 0.9 && position.x > window.innerWidth * 0.67) {
-  //       console.log("Examiner 3");
-  //       examinerIndex = 3;
-  //     }
-  //     examinerIndex > 0 ? this.gameService.addElementToExaminer(examinerIndex, elementIndex) : null;
-  //   }
-  // }
+  private handleElementsVisibility(): void {
+    const elementId = parseInt(this.htmlElement.nativeElement.id.substr(this.htmlElement.nativeElement.id.length - 1)) - 1;
+    this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
+      if (result[elementId].status === 'hidden') {
+        this.renderer.setStyle(this.htmlElement.nativeElement, 'display', 'none');
+      } else {
+        this.renderer.setStyle(this.htmlElement.nativeElement, 'display', 'flex');
+      }
+    })
+  }
 
 }
