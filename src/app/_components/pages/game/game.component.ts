@@ -57,13 +57,21 @@ export class GameComponent implements OnInit {
         examinerIndex = 2;
       }
     }
-    examinerIndex != null ? this.gameService.addElementToExaminer(examinerIndex, elementIndex) : this.resetElementPosition(element);
+    if (examinerIndex != null) {
+      if (this.examiners[examinerIndex].status !== 'examining') {
+        this.gameService.addElementToExaminer(examinerIndex, elementIndex);
+      } else {
+        this.resetElementPosition(element);
+      }
+    } else {
+      this.resetElementPosition(element);
+    }
   }
 
   private updateElements(): void {
     this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
       this.elements = result;
-      console.log("Mandi: ", this.elements);
+      console.log(this.elements);
     });
   }
 

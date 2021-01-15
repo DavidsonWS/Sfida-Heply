@@ -26,7 +26,6 @@ export class ExaminerComponent implements OnInit {
 
   private updateExaminer(): IGameExaminer {
     this.gameService.getExaminers().subscribe((result: Array<IGameExaminer>) => {
-      console.log(result[this.examinerNumber - 1]);
       this.examiner = result[this.examinerNumber - 1];
       this.setLabel();
     });
