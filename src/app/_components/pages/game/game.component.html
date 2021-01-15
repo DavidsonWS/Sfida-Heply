@@ -8,28 +8,28 @@
       <div class="funnel-container">
         <div class="icon funnel"></div>
         <div class="elements">
-          <div appElementDrag #element1 id="element1" class="shape shape-triangle" (released)="onElementRelease($event, element1)">
+          <div appElementDrag #element1 id="element1" class="shape shape-rectangle" (released)="onElementRelease($event, element1)">
             <span class="element-weight">{{ elements[0].weight ? elements[0].weight + 'kg' : ''}}</span>
           </div>
-          <div appElementDrag #element2 id="element2" class="shape shape-square" (released)="onElementRelease($event, element2)">
+          <div appElementDrag #element2 id="element2" class="shape shape-circle" (released)="onElementRelease($event, element2)">
             <span class="element-weight">{{ elements[1].weight ? elements[1].weight + 'kg' : ''}}</span>
           </div>
           <div appElementDrag #element3 id="element3" class="shape shape-triangle" (released)="onElementRelease($event, element3)">
             <span class="element-weight">{{ elements[2].weight ? elements[2].weight + 'kg' : ''}}</span>
           </div>
-          <div appElementDrag #element4 id="element4" class="shape shape-circle" (released)="onElementRelease($event, element4)">
+          <div appElementDrag #element4 id="element4" class="shape shape-rectangle" (released)="onElementRelease($event, element4)">
             <span class="element-weight">{{ elements[3].weight ? elements[3].weight + 'kg' : ''}}</span>
           </div>
-          <div appElementDrag #element5 id="element5" class="shape shape-rectangle" (released)="onElementRelease($event, element5)">
+          <div appElementDrag #element5 id="element5" class="shape shape-circle" (released)="onElementRelease($event, element5)">
             <span class="element-weight">{{ elements[4].weight ? elements[4].weight + 'kg' : ''}}</span>
           </div>
           <div appElementDrag #element6 id="element6" class="shape shape-triangle" (released)="onElementRelease($event, element6)">
             <span class="element-weight">{{ elements[5].weight ? elements[5].weight + 'kg' : ''}}</span>
           </div>
-          <div appElementDrag #element7 id="element7" class="shape shape-circle" (released)="onElementRelease($event, element7)">
+          <div appElementDrag #element7 id="element7" class="shape shape-square" (released)="onElementRelease($event, element7)">
             <span class="element-weight">{{ elements[6].weight ? elements[6].weight + 'kg' : ''}}</span>
           </div>
-          <div appElementDrag #element8 id="element8" class="shape shape-rectangle" (released)="onElementRelease($event, element8)">
+          <div appElementDrag #element8 id="element8" class="shape shape-triangle" (released)="onElementRelease($event, element8)">
             <span class="element-weight">{{ elements[7].weight ? elements[7].weight + 'kg' : ''}}</span>
           </div>
         </div>
