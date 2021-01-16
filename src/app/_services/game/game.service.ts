@@ -38,6 +38,7 @@ export class GameService {
    }
 
   public startGame(elementsCount: number): void {
+    this.time = 0;
     this.showPopup.next(false);
     this.score.next(0);
     this.initializeElementsArray(elementsCount);
