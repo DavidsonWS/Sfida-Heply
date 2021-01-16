@@ -60,7 +60,9 @@ export class GameComponent implements OnInit {
     }
     if (examinerIndex != null) {
       if (this.examiners[examinerIndex].status !== 'examining') {
+        this.resetElementPosition(element);
         this.gameService.addElementToExaminer(examinerIndex, elementIndex);
+        this.gameService.changeElementStatus(elementIndex);
       } else {
         this.resetElementPosition(element);
       }

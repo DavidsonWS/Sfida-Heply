@@ -19,7 +19,7 @@ export class GameService {
     this.score = new BehaviorSubject(0);
     this.elementsSubscribable = new BehaviorSubject(Array<IGameElement>(8));
     this.examinersSubscribable = new BehaviorSubject(Array<IGameExaminer>(3));
-    this.time = 5000;
+    this.time = 3000;
   }
 
   public ngOnDestroy() {
@@ -90,7 +90,9 @@ export class GameService {
   }
 
   public changeElementStatus(elementIndex: number): void {
-
+    this.elements[elementIndex].status = 'hidden';
+    this.elements[elementIndex].weight = null;
+    this.elementsSubscribable.next(this.elements);
   }
 
   public getScore(): Observable<number> {
@@ -98,9 +100,10 @@ export class GameService {
   }
 
   public addElementToExaminer(examinerId: number, elementId: number): void {
+    const weight = this.elements[elementId].weight;
     this.examiners[examinerId].status = 'examining';
-    this.examiners[examinerId].time = this.elements[elementId].weight;
-    this.elements[elementId].status = 'busy';
+    this.examiners[examinerId].time = weight;
+    this.elements[elementId].status = 'hidden';
     this.examinersSubscribable.next(this.examiners);
     this.elementsSubscribable.next(this.elements);
 
@@ -108,7 +111,7 @@ export class GameService {
       this.examiners[examinerId].time -= 1;
       this.examinersSubscribable.next(this.examiners);
       if (this.examiners[examinerId].time === 0) {
-        this.score.next(this.score.value + this.elements[elementId].weight);
+        this.score.next(this.score.value + weight);
         this.examiners[examinerId].status = 'idle';
         this.examiners[examinerId].time = null;
         this.examinersSubscribable.next(this.examiners);
