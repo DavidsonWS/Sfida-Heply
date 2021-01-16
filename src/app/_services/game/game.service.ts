@@ -43,7 +43,7 @@ export class GameService {
     this.score.next(0);
     this.initializeElementsArray(elementsCount);
     this.initializeExaminersArray();
-    this.time = 3000;
+    this.time = 2000;
     this.interval = setInterval(() => {
       this.addElement();
       this.elementsSubscribable.next(this.elements);
