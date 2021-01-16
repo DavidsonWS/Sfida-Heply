@@ -21,7 +21,7 @@ export class GameService {
     this.showPopup = new BehaviorSubject(false);
     this.elementsSubscribable = new BehaviorSubject(Array<IGameElement>(8));
     this.examinersSubscribable = new BehaviorSubject(Array<IGameExaminer>(3));
-    this.time = 3000;
+    this.time = 0;
   }
 
   public ngOnDestroy() {
@@ -43,7 +43,7 @@ export class GameService {
     this.score.next(0);
     this.initializeElementsArray(elementsCount);
     this.initializeExaminersArray();
-
+    this.time = 3000;
     this.interval = setInterval(() => {
       this.addElement();
       this.elementsSubscribable.next(this.elements);
