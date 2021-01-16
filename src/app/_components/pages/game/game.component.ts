@@ -24,10 +24,10 @@ export class GameComponent implements OnInit {
     this.score = 0;
     this.elements = new Array<IGameElement>(8);
     this.examiners = new Array<IGameExaminer>(3);
+    this.playerName = localStorage.getItem('player');
   }
 
   public ngOnInit(): void {
-    this.playerName = localStorage.getItem('player');
     this.gameService.startGame(8);
     this.updateElements();
     this.updateExaminers();
@@ -37,7 +37,6 @@ export class GameComponent implements OnInit {
 
   public onElementRelease(currentPosition: Array<IPoint>, element: HTMLElement): void {
     console.warn(currentPosition, element);
-    // this.resetElementPosition(element);
     this.examinerHit(currentPosition[1], element);
   }
 
@@ -78,14 +77,12 @@ export class GameComponent implements OnInit {
   private updateElements(): void {
     this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
       this.elements = result;
-      console.log(this.elements);
     });
   }
 
   private updateExaminers(): void {
     this.gameService.getExaminers().subscribe((result: Array<IGameExaminer>) => {
       this.examiners = result;
-      console.log(this.examiners);
     });
   }
 
@@ -98,7 +95,6 @@ export class GameComponent implements OnInit {
   private updatePopup(): void {
     this.gameService.getPopup().subscribe((result: any) => {
       this.showPopup = result;
-      console.log("Popup status", this.showPopup)
     })
   }
 

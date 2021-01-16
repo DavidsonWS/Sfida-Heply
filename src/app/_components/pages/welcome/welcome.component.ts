@@ -10,9 +10,8 @@ import { Router } from '@angular/router';
 export class WelcomeComponent implements OnInit {
 
   public playerNameForm: FormGroup;
-  private router: Router;
 
-  constructor(router: Router) {
+  constructor(private router: Router) {
     this.playerNameForm = new FormGroup({
       playerName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
     });
