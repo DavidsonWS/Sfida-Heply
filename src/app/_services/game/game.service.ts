@@ -83,7 +83,7 @@ export class GameService {
       console.warn('end game');
       clearInterval(this.interval);
     } else {
-      element.weight = Math.floor(Math.random() * Math.floor(10)) + 1;
+      element.weight = Math.floor(Math.random() * Math.floor(20)) + 1;
       element.status = 'visible';
     }
 
