@@ -1,5 +1,5 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IGameElement, IGameExaminer, IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 
@@ -8,7 +8,7 @@ import { GameService } from 'src/app/_services';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   public score: number;
   public playerName: string;
 
@@ -16,6 +16,11 @@ export class GameComponent implements OnInit {
   public examiners: IGameExaminer[];
 
   public showPopup: boolean;
+
+  private updateElementsSubscription: Subscription;
+  private updateExaminersSubscription: Subscription;
+  private updateScoreSubscription: Subscription;
+  private updatePopupSubscription: Subscription;
 
   constructor(
     private renderer: Renderer2,
@@ -33,6 +38,21 @@ export class GameComponent implements OnInit {
     this.updateExaminers();
     this.updateScore();
     this.updatePopup();
+  }
+
+  public ngOnDestroy(): void {
+    if (this.updateElementsSubscription) {
+      this.updateElementsSubscription.unsubscribe();
+    }
+    if (this.updateExaminersSubscription) {
+      this.updateExaminersSubscription.unsubscribe();
+    }
+    if (this.updateScoreSubscription) {
+      this.updateScoreSubscription.unsubscribe();
+    }
+    if (this.updatePopupSubscription) {
+      this.updatePopupSubscription.unsubscribe();
+    }
   }
 
   public onElementRelease(currentPosition: Array<IPoint>, element: HTMLElement): void {
@@ -75,25 +95,25 @@ export class GameComponent implements OnInit {
   }
 
   private updateElements(): void {
-    this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
+    this.updateElementsSubscription = this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
       this.elements = result;
     });
   }
 
   private updateExaminers(): void {
-    this.gameService.getExaminers().subscribe((result: Array<IGameExaminer>) => {
+    this.updateExaminersSubscription = this.gameService.getExaminers().subscribe((result: Array<IGameExaminer>) => {
       this.examiners = result;
     });
   }
 
   private updateScore(): void {
-    this.gameService.getScore().subscribe((result: number) => {
+    this.updateScoreSubscription = this.gameService.getScore().subscribe((result: number) => {
       this.score = result;
     });
   }
 
   private updatePopup(): void {
-    this.gameService.getPopup().subscribe((result: any) => {
+    this.updatePopupSubscription = this.gameService.getPopup().subscribe((result: any) => {
       this.showPopup = result;
     })
   }

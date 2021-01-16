@@ -9,12 +9,14 @@ export class GameService {
 
   private score: BehaviorSubject<number>;
   private showPopup: BehaviorSubject<boolean>;
-  private interval: any;
-  private time: number;
-  private elements: IGameElement[];
-  private examiners: IGameExaminer[];
   private elementsSubscribable: BehaviorSubject<Array<IGameElement>>;
   private examinersSubscribable: BehaviorSubject<Array<IGameExaminer>>;
+
+  private interval: NodeJS.Timer;
+  private time: number;
+
+  private elements: IGameElement[];
+  private examiners: IGameExaminer[];
 
   constructor() {
     this.score = new BehaviorSubject(0);
@@ -28,11 +30,21 @@ export class GameService {
     if (this.interval) {
       clearInterval(this.interval);
     }
+    for (let i = 0; i < this.examiners.length; i++) {
+      if (this.examiners[i].timer) {
+        clearInterval(this.examiners[i].timer);
+      }
+    }
   }
 
   public endGame(): void {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+    for (let i = 0; i < this.examiners.length; i++) {
+      if (this.examiners[i].timer) {
+        clearInterval(this.examiners[i].timer);
+      }
     }
     this.showPopup.next(true);
    }
@@ -68,7 +80,7 @@ export class GameService {
     this.examiners = new Array<IGameExaminer>(3);
 
     for (let i = 0; i < 3; i++) {
-      this.examiners[i] = { status: 'idle', time: null };
+      this.examiners[i] = { status: 'idle', time: null, timer: null };
     }
 
     this.examinersSubscribable.next(this.examiners);
@@ -78,10 +90,7 @@ export class GameService {
     const element = this.elements.find((element: IGameElement) => element.status === 'hidden');
 
     if (!element) {
-      // TODO: End game
       this.endGame();
-      console.warn('end game');
-      clearInterval(this.interval);
     } else {
       element.weight = Math.floor(Math.random() * Math.floor(15)) + 1;
       element.status = 'visible';
@@ -108,7 +117,7 @@ export class GameService {
     this.examinersSubscribable.next(this.examiners);
     this.elementsSubscribable.next(this.elements);
 
-    const updateTime = setInterval(() => {
+    this.examiners[examinerId].timer = setInterval(() => {
       this.examiners[examinerId].time -= 1;
       this.examinersSubscribable.next(this.examiners);
       if (this.examiners[examinerId].time === 0) {
@@ -116,7 +125,7 @@ export class GameService {
         this.examiners[examinerId].status = 'idle';
         this.examiners[examinerId].time = null;
         this.examinersSubscribable.next(this.examiners);
-        clearInterval(updateTime);
+        clearInterval(this.examiners[examinerId].timer);
       }
     }, 1000);
   }
