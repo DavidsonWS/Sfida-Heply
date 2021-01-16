@@ -1,0 +1,31 @@
+.popup-background {
+  position: fixed;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--light-bg-transparent);
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .popup-container {
+    background-color: var(--dark-bg);
+    width: 70vw;
+    height: 60vh;
+    border-radius: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    box-sizing: border-box;
+    padding: 32px;
+
+    .popup-score {
+      font-size: 32px;
+    }
+
+  }
+
+}

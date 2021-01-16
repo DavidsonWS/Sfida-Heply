@@ -50,35 +50,6 @@
 
       }
 
-      #player-name-submit {
-        width: fit-content;
-        border: none;
-        background: none;
-        margin: 16px 0 0 0;
-
-        cursor: pointer;
-        padding: 16px 24px;
-        background-color: var(--dark-bg);
-        border: 6px solid var(--white);
-        border-radius: 16px;
-        color: var(--white);
-        font-size: 28px;
-        font-family: 'Fredoka One', cursive;
-        transition: 0.3s;
-
-        &:disabled {
-          cursor: not-allowed;
-          color: var(--light-bg);
-          border-color: var(--light-bg);
-        }
-
-        &:not(:disabled):hover {
-          background-color: var(--white);
-          color: var(--dark-bg);
-        }
-
-      }
-
     }
 
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IGameElement, IGameExaminer, IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 
@@ -13,6 +14,8 @@ export class GameComponent implements OnInit {
 
   public elements: IGameElement[];
   public examiners: IGameExaminer[];
+
+  public showPopup: boolean;
 
   constructor(
     private renderer: Renderer2,
@@ -29,6 +32,7 @@ export class GameComponent implements OnInit {
     this.updateElements();
     this.updateExaminers();
     this.updateScore();
+    this.updatePopup();
   }
 
   public onElementRelease(currentPosition: Array<IPoint>, element: HTMLElement): void {
@@ -89,6 +93,13 @@ export class GameComponent implements OnInit {
     this.gameService.getScore().subscribe((result: number) => {
       this.score = result;
     });
+  }
+
+  private updatePopup(): void {
+    this.gameService.getPopup().subscribe((result: any) => {
+      this.showPopup = result;
+      console.log("Popup status", this.showPopup)
+    })
   }
 
 }

@@ -8,6 +8,7 @@ import { IGameElement, IGameExaminer } from 'src/app/_interfaces';
 export class GameService {
 
   private score: BehaviorSubject<number>;
+  private showPopup: BehaviorSubject<boolean>;
   private interval: any;
   private time: number;
   private elements: IGameElement[];
@@ -17,6 +18,7 @@ export class GameService {
 
   constructor() {
     this.score = new BehaviorSubject(0);
+    this.showPopup = new BehaviorSubject(false);
     this.elementsSubscribable = new BehaviorSubject(Array<IGameElement>(8));
     this.examinersSubscribable = new BehaviorSubject(Array<IGameExaminer>(3));
     this.time = 3000;
@@ -28,19 +30,16 @@ export class GameService {
     }
   }
 
-  public resetGame(): void {
-
-  }
-
   public endGame(): void {
     if (this.interval) {
       clearInterval(this.interval);
     }
-
-    //TO DO
+    this.showPopup.next(true);
    }
 
   public startGame(elementsCount: number): void {
+    this.showPopup.next(false);
+    this.score.next(0);
     this.initializeElementsArray(elementsCount);
     this.initializeExaminersArray();
 
@@ -79,6 +78,7 @@ export class GameService {
 
     if (!element) {
       // TODO: End game
+      this.endGame();
       console.warn('end game');
       clearInterval(this.interval);
     } else {
@@ -126,6 +126,10 @@ export class GameService {
 
   public getExaminers(): Observable<Array<IGameExaminer>> {
     return this.examinersSubscribable.asObservable();
+  }
+
+  public getPopup(): Observable<boolean> {
+    return this.showPopup.asObservable();
   }
 
 }

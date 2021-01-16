@@ -7,6 +7,7 @@
     <div class="game">
       <div class="funnel-container">
         <div class="icon funnel"></div>
+
         <div class="elements">
           <div appElementDrag #element1 id="element1" class="shape shape-rectangle" (released)="onElementRelease($event, element1)">
             <span class="element-weight">{{ elements[0].weight ? elements[0].weight + 'kg' : ''}}</span>
@@ -34,11 +35,16 @@
           </div>
         </div>
       </div>
+
       <div class="game-examiners">
         <app-examiner examinerNumber="1"></app-examiner>
         <app-examiner examinerNumber="2"></app-examiner>
         <app-examiner examinerNumber="3"></app-examiner>
       </div>
+
     </div>
   </div>
+
+  <app-end-game-popup [score]="score" [ngClass]="{ 'show': showPopup, 'hide': !showPopup }"></app-end-game-popup>
+
 </div>

@@ -1,6 +1,7 @@
 :root {
   --dark-bg: #333356;
   --light-bg: #50557E;
+  --light-bg-transparent: rgba(80, 85, 126, 0.75);
   --shapes-bg: #525E87;
   --white: #F8FCFC;
 }
@@ -26,4 +27,33 @@ h1 {
 
 .icon {
   mask-size: cover;
+}
+
+button[type="submit"], a {
+  width: fit-content;
+  border: none;
+  background: none;
+  margin: 16px 0 0 0;
+
+  cursor: pointer;
+  padding: 16px 24px;
+  background-color: var(--dark-bg);
+  border: 6px solid var(--white);
+  border-radius: 16px;
+  color: var(--white);
+  font-size: 28px;
+  font-family: 'Fredoka One', cursive;
+  transition: 0.3s;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--light-bg);
+    border-color: var(--light-bg);
+  }
+
+  &:not(:disabled):hover {
+    background-color: var(--white);
+    color: var(--dark-bg);
+  }
+
 }

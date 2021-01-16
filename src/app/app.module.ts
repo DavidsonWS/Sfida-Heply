@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ElementDragDirective } from './_directives';
 import { ExaminerComponent, WelcomeComponent, GameComponent } from './_components';
+import { EndGamePopupComponent } from './_components/end-game-popup/end-game-popup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ExaminerComponent, WelcomeComponent, GameComponent } from './_component
     WelcomeComponent,
     GameComponent,
     ElementDragDirective,
-    ExaminerComponent
+    ExaminerComponent,
+    EndGamePopupComponent
   ],
   imports: [
     BrowserModule,
