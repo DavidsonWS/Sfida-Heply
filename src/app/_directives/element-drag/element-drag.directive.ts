@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { clear } from 'console';
 import { IGameElement, IPoint } from 'src/app/_interfaces';
 import { GameService } from 'src/app/_services';
 
@@ -17,6 +18,7 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   private currentTranslatePosition: IPoint;
 
   private elementAngle: number;
+  private animationInterval: NodeJS.Timer;
 
   constructor(
     private htmlElement: ElementRef,
@@ -76,12 +78,33 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   }
 
   private handleElementsVisibility(): void {
-    const elementId = parseInt(this.htmlElement.nativeElement.id.substr(this.htmlElement.nativeElement.id.length - 1)) - 1;
+    const element = this.htmlElement.nativeElement;
+    const elementId = parseInt(element.id.substr(element.id.length - 1)) - 1;
     this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
       if (result[elementId].status === 'hidden') {
-        this.renderer.setStyle(this.htmlElement.nativeElement, 'display', 'none');
+        this.renderer.setStyle(element, 'display', 'none');
       } else {
-        this.renderer.setStyle(this.htmlElement.nativeElement, 'display', 'flex');
+        const elementMatrix = new DOMMatrix(window.getComputedStyle(element).transform);
+        this.elementAngle = Math.round(Math.asin(elementMatrix.b) * (180 / Math.PI));
+        const initialTranslatePosition = { x: elementMatrix.m41, y: elementMatrix.m42 };
+        console.log(initialTranslatePosition)
+        this.renderer.setStyle(
+          element,
+          'transform',
+          `translate3d(${initialTranslatePosition.x}px, -150px, 0) rotate(${this.elementAngle}deg)`
+        );
+        this.renderer.setStyle(element, 'display', 'flex');
+        this.animationInterval = setInterval(() => {
+          this.renderer.setStyle(
+            element,
+            'transform',
+            `translate3d(${initialTranslatePosition.x}px, ${initialTranslatePosition.y}px, 0) rotate(${this.elementAngle}deg)`
+          );
+          setTimeout(() => {
+            this.renderer.setStyle(element, 'transition', 'unset');
+          }, 500);
+          clearInterval(this.animationInterval);
+        }, 1);
       }
     })
   }
