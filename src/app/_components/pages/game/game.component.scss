@@ -48,11 +48,13 @@
             height: 100px;
             z-index: 1;
             cursor: grab;
-            transition: 0.5s;
-
             display: flex;
             justify-content: center;
             align-items: flex-end;
+
+            &.transition {
+              transition: 0.5s;
+            }
 
             span {
               padding: 12px;
@@ -80,42 +82,74 @@
             transform: translate3d(203px, 399px, 0) rotate(37deg);
             width: 65px;
             height: 65px;
+
+            &.animate {
+              transform: translate3d(203px, -150px, 0) rotate(37deg);
+            }
           }
 
           #element2 {
             transform: translate3d(233px, 314px, 0);
             width: 75px;
             height: 75px;
+
+            &.animate {
+              transform: translate3d(233px, -150px, 0);
+            }
           }
 
           #element3 {
             transform: translate3d(153px, 154px, 0) rotate(-51deg);
             height: 150px;
+
+            &.animate {
+              transform: translate3d(153px, -150px, 0) rotate(-51deg);
+            }
           }
 
           #element4 {
             transform: translate3d(205px, 132px, 0) rotate(30deg);
             width: 150px;
             height: 75px;
+
+            &.animate {
+              transform: translate3d(205px, -150px, 0) rotate(30deg);
+            }
           }
 
           #element5 {
             transform: translate3d(321px, 12px, 0);
             width: 110px;
             height: 110px;
+
+            &.animate {
+              transform: translate3d(321px, -150px, 0);
+            }
           }
 
           #element6 {
             transform: translate3d(179px, -32px, 0) rotate(284deg);
             height: 150px;
+
+            &.animate {
+              transform: translate3d(179px, -150px, 0) rotate(284deg);
+            }
           }
 
           #element7 {
             transform: translate3d(102px, 52px, 0) rotate(34deg);
+
+            &.animate {
+              transform: translate3d(102px, -150px, 0) rotate(34deg);
+            }
           }
 
           #element8 {
             transform: translate3d(40px, -14px, 0) rotate(60deg);
+
+            &.animate {
+              transform: translate3d(40px, -150px, 0) rotate(60deg);
+            }
           }
 
         }

@@ -1,12 +1,11 @@
-import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { clear } from 'console';
-import { IGameElement, IPoint } from 'src/app/_interfaces';
-import { GameService } from 'src/app/_services';
+import { Directive, ElementRef, Renderer2, OnInit, OnDestroy, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { IPoint } from 'src/app/_interfaces';
 
 @Directive({
   selector: '[appElementDrag]'
 })
-export class ElementDragDirective implements OnInit, OnDestroy {
+export class ElementDragDirective implements OnInit, OnDestroy, OnChanges {
+  @Input() public status: string;
   @Output() public released: EventEmitter<Array<IPoint>>;
 
   private onMouseDownEvent: EventListenerOrEventListenerObject;
@@ -18,12 +17,10 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   private currentTranslatePosition: IPoint;
 
   private elementAngle: number;
-  private animationInterval: NodeJS.Timer;
 
   constructor(
     private htmlElement: ElementRef,
-    private renderer: Renderer2,
-    private gameService: GameService
+    private renderer: Renderer2
   ) {
     this.released = new EventEmitter<Array<IPoint>>();
   }
@@ -39,7 +36,27 @@ export class ElementDragDirective implements OnInit, OnDestroy {
     this.onMouseMoveEvent = this.handleMouseMove.bind(this);
     this.onMouseUpEvent = this.handleMouseUp.bind(this);
     this.htmlElement.nativeElement.addEventListener('mousedown', this.onMouseDownEvent);
-    this.handleElementsVisibility();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.status?.currentValue) {
+      const element = this.htmlElement.nativeElement;
+
+      if (changes.status.currentValue === 'hidden') {
+        this.renderer.setStyle(element, 'display', 'none');
+      } else {
+        this.renderer.setStyle(element, 'display', 'flex');
+        this.renderer.addClass(element, 'animate');
+        this.renderer.addClass(element, 'transition');
+
+        setTimeout(() => {
+          this.renderer.removeClass(element, 'animate');
+          setTimeout(() => {
+            this.renderer.removeClass(element, 'transition');
+          }, 500);
+        });
+      }
+    }
   }
 
   private handleMouseDown(event: MouseEvent): void {
@@ -70,43 +87,10 @@ export class ElementDragDirective implements OnInit, OnDestroy {
   }
 
   private handleMouseUp(event: MouseEvent): void {
-    // this.examinerHit({ x: event.pageX, y: event.pageY }, this.htmlElement.nativeElement);
     window.removeEventListener('mousemove', this.onMouseMoveEvent);
     window.removeEventListener('mouseup', this.onMouseUpEvent);
     this.htmlElement.nativeElement.addEventListener('mousedown', this.onMouseDownEvent);
     this.released.emit([this.currentTranslatePosition, { x: event.pageX, y: event.pageY }]);
-  }
-
-  private handleElementsVisibility(): void {
-    const element = this.htmlElement.nativeElement;
-    const elementId = parseInt(element.id.substr(element.id.length - 1)) - 1;
-    this.gameService.getElements().subscribe((result: Array<IGameElement>) => {
-      if (result[elementId].status === 'hidden') {
-        this.renderer.setStyle(element, 'display', 'none');
-      } else {
-        const elementMatrix = new DOMMatrix(window.getComputedStyle(element).transform);
-        this.elementAngle = Math.round(Math.asin(elementMatrix.b) * (180 / Math.PI));
-        const initialTranslatePosition = { x: elementMatrix.m41, y: elementMatrix.m42 };
-        console.log(initialTranslatePosition)
-        this.renderer.setStyle(
-          element,
-          'transform',
-          `translate3d(${initialTranslatePosition.x}px, -150px, 0) rotate(${this.elementAngle}deg)`
-        );
-        this.renderer.setStyle(element, 'display', 'flex');
-        this.animationInterval = setInterval(() => {
-          this.renderer.setStyle(
-            element,
-            'transform',
-            `translate3d(${initialTranslatePosition.x}px, ${initialTranslatePosition.y}px, 0) rotate(${this.elementAngle}deg)`
-          );
-          setTimeout(() => {
-            this.renderer.setStyle(element, 'transition', 'unset');
-          }, 500);
-          clearInterval(this.animationInterval);
-        }, 1);
-      }
-    })
   }
 
 }
