@@ -54,7 +54,7 @@ export class ElementDragDirective implements OnInit, OnDestroy, OnChanges {
           setTimeout(() => {
             this.renderer.removeClass(element, 'transition');
           }, 500);
-        });
+        }, 25);
       }
     }
   }
