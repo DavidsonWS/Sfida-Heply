@@ -1,7 +1,7 @@
 <div class="popup-background">
   <div class="popup-container">
     <span class="popup-score">
-      {{ score === 0 ? "0 punti?! Dai, su! 👀" : 'Congratulazioni, hai ottenuto ' + score + ' punti!' }}
+      {{ score === 0 ? "0 punti?! Dai, su! 👀" : score === 1 ? 'Congratulazioni, hai ottenuto solo un punto!' : 'Congratulazioni, hai ottenuto ' + score + ' punti!' }}
     </span>
     <a (click)="playAgain()">Gioca di nuovo!</a>
   </div>
