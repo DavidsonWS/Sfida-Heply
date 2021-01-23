@@ -45,6 +45,8 @@ export class GameService {
       if (this.examiners[i].timer) {
         clearInterval(this.examiners[i].timer);
       }
+      this.examiners[i].status = 'examining';
+      this.examinersSubscribable.next(this.examiners);
     }
     this.showPopup.next(true);
    }

@@ -34,7 +34,7 @@ export class ExaminerComponent implements OnInit {
 
   private setLabel(): void {
     if (this.examiner) {
-      this.examiner.status !== 'examining' ? this.label = `Esaminatore ${this.examinerNumber}` : this.label = `Occupato: ${this.examiner.time}s`;
+      this.examiner.time === null ? this.label = `Esaminatore ${this.examinerNumber}` : this.label = `Occupato: ${this.examiner.time}s`;
     } else {
       this.label = `Esaminatore ${this.examinerNumber}`;
     }
